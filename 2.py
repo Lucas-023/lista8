@@ -27,3 +27,21 @@ class regression_poly:
     
     def predict(self, coefficients, X):
         return np.dot(X, coefficients)
+
+pontos = [(1, 1), (2, 4), (3, 9), (4, 16)]
+model = regression_poly(pontos)
+coefs = model.aprox(2)
+print(coefs)      
+
+def predict(max_degree):
+    erros = []
+    for i in range(max_degree+1):
+          coefici, X, Y = model.aprox(i)
+          predictions = model.predict(coefici, X)
+          mse = np.mean((Y - predictions)**2)
+          erros.append(mse)
+    return erros
+error = predict(10)
+
+melhor_grau = np.argmin(error) 
+print(f'Melhor grau ta sendo: {melhor_grau}')
